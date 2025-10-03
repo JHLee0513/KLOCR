@@ -1,0 +1,50 @@
+RegionExtractor:
+  class: PaddleDet
+  module_args:
+    model_det: "weights/paddle/ch_PP-OCRv4_det_server_infer"
+    model_reg: "weights/paddle/openatom_rec_svtrv2_ch_infer"
+    batch_size: 4
+    drop_score: 0.5 # recognition model
+    det_db_box_thresh: 0.5 # detection model
+    device: cuda:0
+    group_boxes: False
+    verbose: True
+
+  input_key:
+    image: image
+  output_key:
+    roi: roi
+
+Recognition:
+  class: TROCR
+  module_args:
+    pretrained: "team-lucid/trocr-small-korean"
+    weights: "weights/trocr/exp9/066"
+    device: cuda:0
+    dtype: fp16
+    max_length: 192 # exp7 #128 # exp6 and older
+    batch_size: 64
+    num_beams: 1
+    do_sample: False
+    length_penalty: 1.0
+    verbose: True
+
+  input_key:
+    image: image
+    roi: roi
+  output_key:
+    text: text
+
+CheckboxExtractor:
+  class: CheckboxModule
+  module_args:
+    weights: "weights/checkbox/checkbox-20241201.pt"
+    device: cuda:0
+    conf: 0.5
+    iou: 0.2
+    verbose: True
+    viz: False
+  input_key:
+    image: image
+  output_key:
+    checkbox_detections: checkbox_detections

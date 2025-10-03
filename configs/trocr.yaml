@@ -1,0 +1,15 @@
+Recognition:
+  class: TROCR
+  module_args:
+    pretrained: "team-lucid/trocr-small-korean"
+    device: cuda:0
+    dtype: fp16
+    max_length: 192
+    num_beams: 1
+    do_sample: False
+    length_penalty: 1.0
+  input_key:
+    image: image
+    roi: roi
+  output_key:
+    text: text
