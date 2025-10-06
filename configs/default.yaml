@@ -35,16 +35,16 @@ Recognition:
   output_key:
     text: text
 
-CheckboxExtractor:
-  class: CheckboxModule
-  module_args:
-    weights: "weights/checkbox/checkbox-20241201.pt"
-    device: cuda:0
-    conf: 0.5
-    iou: 0.2
-    verbose: True
-    viz: False
-  input_key:
-    image: image
-  output_key:
-    checkbox_detections: checkbox_detections
+# CheckboxExtractor:
+#   class: CheckboxModule
+#   module_args:
+#     weights: "weights/checkbox/checkbox-20241201.pt"
+#     device: cuda:0
+#     conf: 0.5
+#     iou: 0.2
+#     verbose: True
+#     viz: False
+#   input_key:
+#     image: image
+#   output_key:
+#     checkbox_detections: checkbox_detections

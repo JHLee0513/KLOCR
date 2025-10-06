@@ -3,7 +3,7 @@
 
 # KLOCR: Korean Language OCR
 
-Paper: [Exploring OCR-augmented Generation for Bilingual VQA]()
+Paper: [Exploring OCR-augmented Generation for Bilingual VQA](https://arxiv.org/abs/2510.02543)
 
 ## Overview
 
@@ -13,7 +13,7 @@ KLOCR is an open-source Korean & English bilingual OCR model trained on data fro
 
 Model weights for KLOCR and checkbox detection model can be downloaded here: https://drive.google.com/drive/folders/1pah84yNveLA9SJGGw-CFJpxQ1Ot5ARYx?usp=sharing
 
-After downloading, place them in the weights directory.
+Place the downloaded files in the `weights/` directory.
 
 ## Get Started
 
@@ -45,14 +45,13 @@ If you only need to run the KLOCR model itself, the model weights and the [huggi
 # https://huggingface.co/docs/transformers/en/model_doc/trocr
 from transformers import TrOCRProcessor, VisionEncoderDecoderModel
 from PIL import Image
+import requests
 
 # the KLOCR model is fintuned from "team-lucid/trocr-small-korean"
 processor = TrOCRProcessor.from_pretrained("team-lucid/trocr-small-korean")
-model = VisionEncoderDecoderModel.from_pretrained("path/to/klocr/weights")
+model = VisionEncoderDecoderModel.from_pretrained("weights/trocr/exp9/066")
 
-# load image from the IAM dataset
-url = "https://fki.tic.heia-fr.ch/static/img/a01-122-02.jpg"
-image = Image.open(requests.get(url, stream=True).raw).convert("RGB")
+image = Image.open("example/0.png").convert("RGB")
 
 pixel_values = processor(image, return_tensors="pt").pixel_values
 generated_ids = model.generate(pixel_values)
@@ -96,7 +95,7 @@ class Module:
 
 This package does assume you have a GPU. We tested KLOCR on a RTX 6000 (Turing) and RTX A6000 (Ampere) GPU.
 
-**We strongly suggest running KLOCR with docker since CUDNN installation for PaddlePaddle can become tricky.**
+**We suggest running KLOCR pipeline/package with docker since CUDNN installation for PaddlePaddle can become tricky.**
 
 There are two ways to run the KLOCR package:
 1. Docker
@@ -137,6 +136,16 @@ uvicorn src.app:app --host 0.0.0.0 --port 80 --workers 1
 
 If you use this package or the KLOCR model, found it useful, or need to reference it for your project/paper, please consider citation as below:
 ```
+@misc{lee2025exploringocr,
+      title={Exploring OCR-augmented Generation for Bilingual VQA}, 
+      author={JoonHo Lee and Sunho Park},
+      year={2025},
+      eprint={2510.02543},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2510.02543}, 
+}
+
 @software{kloser2025github,
   author = {JoonHo Lee, Sunho Park},
   title = {{KLOCR}:Korean Language OCR},
