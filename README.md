@@ -4,7 +4,7 @@
 # KLOCR: Korean Language OCR
 
 Paper: [Exploring OCR-augmented Generation for Bilingual VQA](https://arxiv.org/abs/2510.02543)
-
+Huggingface: [https://huggingface.co/JHL3/KLOCR/tree/main](https://huggingface.co/JHL3/KLOCR/tree/main)
 ## Overview
 
 KLOCR is an open-source Korean & English bilingual OCR model trained on data from publicly available sources. This repository provides a package to run the model as an API service.
